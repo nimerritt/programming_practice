@@ -1,6 +1,7 @@
 """
 This module contains common code relating to trees.
 """
+import pydot
 
 class Node:
     """ Representation of a binary tree """
@@ -25,4 +26,20 @@ def treeify(elements):
 
     return Node(mid, treeify(left), treeify(right))
 
+def draw(root):
+    g = pydot.Dot(graph_type='graph')
+    draw_helper(root, g)
+    return g
 
+
+def draw_helper(root, g):
+    dot_root = pydot.Node(root.label)
+    if root.left:
+        dot_left = pydot.Node(root.left.label)
+        g.add_edge(pydot.Edge(dot_root, dot_left))
+        draw_helper(root.left, g)
+
+    if root.right:
+        dot_right = pydot.Node(root.right.label)
+        g.add_edge(pydot.Edge(dot_root, dot_right))
+        draw_helper(root.right, g)
