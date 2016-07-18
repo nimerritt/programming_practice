@@ -14,8 +14,9 @@ class Node:
 def verify_binary_tree(root):
     if not root:
         return True
-    left = root.left and root.left.label < root.label and verify_binary_tree(root.left)
-    right = root.right and root.right.label > root.label and verify_binary_tree(root.right)
+    left = root.left and root.left.label < root.label and verify_binary_tree(root.left) or True
+    right = root.right and root.right.label > root.label and verify_binary_tree(root.right) or True
+
     return left and right
 
 def treeify(elements):
@@ -34,4 +35,4 @@ def treeify(elements):
     return Node(mid, treeify(left), treeify(right))
 
 t = treeify(list(range(10)))
-assert(verify_binary_tree(t), True)
+assert(verify_binary_tree(t) == True)
